@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Информация о человеке</title>
@@ -8,7 +8,7 @@
 
 <h1 th:text="${person.getFullName()}">value</h1>
 <ul>
-    <li th:text="'ID: ' + ${person.getPerson_id()}">user</li>
+    <li th:text="'ID: ' + ${person.getId()}">user</li>
     <li th:text="'Год рождения: ' + ${person.getYearOfBorn()}">user</li>
 </ul>
 <br>
@@ -35,7 +35,7 @@
         </thead>
 
         <tbody th:each="book : ${person_books}">
-        <th th:text="${book.getBook_id()}">value</th>
+        <th th:text="${book.getId()}">value</th>
         <th th:text="${book.getTitle()}">value</th>
         <th th:text="${book.getAuthor()}">value</th>
         <th th:text="${book.getReleaseDate()}">value</th>
@@ -50,12 +50,12 @@
 </form>
 
 <br>
-<form th:method="GET" th:action="@{/people/{id}/edit(id=${person.getPerson_id()})}">
+<form th:method="GET" th:action="@{/people/{id}/edit(id=${person.getId()})}">
     <input type="submit" value="Редактировать данные человека"/>
 </form>
 
 <br>
-<form th:method="DELETE" th:action="@{/people/{id}/delete(id=${person.getPerson_id()})}">
+<form th:method="DELETE" th:action="@{/people/{id}/delete(id=${person.getId()})}">
     <input type="submit" value="Удалить человека"/>
 </form>
 

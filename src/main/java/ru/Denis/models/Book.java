@@ -1,28 +1,45 @@
 package ru.Denis.models;
 
+import javax.persistence.*;
+
+
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Size;
 
+@Entity
+@Table(name = "books")
 public class Book {
+
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "title")
     @Size(min = 2, max = 40, message = "Размер названия книги: от 2 до 30!")
     private String title;
+
+    @Column(name = "author")
     @Size(min = 2, max = 40, message = "Размер ФИО автора: от 2 до 30!")
     private String author;
 
+    @Column(name = "releaseDate")
     @Max(value = 2023, message = "Год издания не может быть больше 2023 года!")
     private int releaseDate;
 
-    private int book_id;
-
+    @ManyToOne
+    @JoinColumn(name = "person_id", referencedColumnName = "id")
+    private Person owner;
 
     public Book() {
     }
 
-    public Book(String title, String author, int releaseDate, int book_id) {
+    public Book(int id, String title, String author, int releaseDate, Person owner) {
+        this.id = id;
         this.title = title;
         this.author = author;
         this.releaseDate = releaseDate;
-        this.book_id = book_id;
+        this.owner = owner;
     }
 
     public String getTitle() {
@@ -49,12 +66,19 @@ public class Book {
         this.releaseDate = releaseDate;
     }
 
-    public int getBook_id() {
-        return book_id;
+    public int getId() {
+        return id;
     }
 
-    public void setBook_id(int book_id) {
-        this.book_id = book_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
+    public Person getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Person owner) {
+        this.owner = owner;
+    }
 }

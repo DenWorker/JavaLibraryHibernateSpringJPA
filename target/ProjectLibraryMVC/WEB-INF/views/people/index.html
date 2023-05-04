@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>БД людей</title>
@@ -7,9 +7,9 @@
 <body>
 
 <div th:each="person : ${people}">
-    <a th:href="@{/people/{id}(id=${person.getPerson_id()})}" th:text="${person.getFullName()}">value</a>
+    <a th:href="@{/people/{id}(id=${person.getId()})}" th:text="${person.getFullName()}">value</a>
     <ul>
-        <li th:text="'ID: ' + ${person.getPerson_id()}">user</li>
+        <li th:text="'ID: ' + ${person.getId()}">user</li>
         <li th:text="'Год рождения: ' + ${person.getYearOfBorn()}">user</li>
     </ul>
     <hr>

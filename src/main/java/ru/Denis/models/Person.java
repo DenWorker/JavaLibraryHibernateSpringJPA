@@ -1,25 +1,42 @@
 package ru.Denis.models;
 
+import javax.persistence.*;
+
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
+import java.util.List;
 
+@Entity
+@Table(name = "people")
 public class Person {
 
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "fullname")
     @Size(min = 2, max = 40, message = "Размер ФИО: от 2 до 30!")
     private String fullName;
+
+    @Column(name = "yearOfBorn")
     @Min(value = 1920, message = "Год рождения не может быть меньше 1920 года!")
     @Max(value = 2023, message = "Год рождения не может быть больше 2023 года!")
     private int yearOfBorn;
-    private int person_id;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Book> books;
+
 
     public Person() {
     }
 
-    public Person(String fullName, int yearOfBorn, int person_id) {
+    public Person(int person_id, String fullName, int yearOfBorn, List<Book> books) {
+        this.id = person_id;
         this.fullName = fullName;
         this.yearOfBorn = yearOfBorn;
-        this.person_id = person_id;
+        this.books = books;
     }
 
     public String getFullName() {
@@ -38,11 +55,19 @@ public class Person {
         this.yearOfBorn = yearOfBorn;
     }
 
-    public int getPerson_id() {
-        return person_id;
+    public int getId() {
+        return id;
     }
 
-    public void setPerson_id(int person_id) {
-        this.person_id = person_id;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 }
