@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>БД книг</title>
-    <link href="../../../resources/css/style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet">
+
 </head>
-<body class="DenisText">
+<body>
 
 <div th:each="book : ${books}">
     <a th:href="@{/books/{id}(id=${book.getId})}" th:text="${book.getTitle()}">value</a>
@@ -17,6 +18,23 @@
 
     <hr>
 </div>
+
+<form th:method="GET" th:action="@{/books}">
+    <label for="page">Введите номер страницы:</label>
+    <br/>
+    <input type="text" id="page" name="page"/>
+    <br/>
+    <label for="countOfBooks">Введите количество отображаемых книг:</label>
+    <br/>
+    <input type="text" id="countOfBooks" name="books_per_page"/>
+    <br/>
+    <br/>
+    <input type="submit" value="Отобразить"/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+</form>
 
 <form th:method="GET" th:action="@{/books/new}">
     <input type="submit" value="Добавить книгу"/>

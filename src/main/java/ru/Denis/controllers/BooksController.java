@@ -29,8 +29,15 @@ public class BooksController {
 
     ///////////////////////////////
     @GetMapping()
-    public String index(Model model) {
-        model.addAttribute("books", booksService.index());
+    public String index(Model model, @RequestParam(value = "page", required = false) Integer page,
+                        @RequestParam(value = "books_per_page", required = false) Integer booksPerPage) {
+
+        if (page == null || booksPerPage == null) {
+            model.addAttribute("books", booksService.index());
+        } else {
+            model.addAttribute("books", booksService.findAll(page, booksPerPage));
+        }
+
         return "books/index";
     }
 
