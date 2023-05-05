@@ -44,6 +44,11 @@ public class BooksService {
                 (booksRepository.findAll(PageRequest.of(page, booksPerPage)).get().collect(Collectors.toList()));
     }
 
+    public Optional<Book> findBook(String findBook) {
+        if (findBook.isEmpty()) return Optional.empty();
+        return booksRepository.findBookByTitleStartingWith(findBook);
+    }
+
     @Transactional
     public void save(Book newBook) {
         booksRepository.save(newBook);

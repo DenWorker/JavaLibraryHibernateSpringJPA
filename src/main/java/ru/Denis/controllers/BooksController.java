@@ -1,7 +1,6 @@
 package ru.Denis.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -116,6 +115,14 @@ public class BooksController {
     public String assignBook(@PathVariable("id") int book_id, @ModelAttribute("person") Person person) {
         booksService.assignBook(book_id, person);
         return "redirect:/books/" + book_id;
+    }
+
+    ///////////////////////////////
+    @GetMapping("/search")
+    public String search(@RequestParam(value = "findBook", required = false) String findBook, Model model) {
+        model.addAttribute("findBook", booksService.findBook(findBook));
+
+        return "books/search";
     }
 
 }
