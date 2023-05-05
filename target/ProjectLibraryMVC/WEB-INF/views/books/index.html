@@ -19,6 +19,8 @@
     <hr>
 </div>
 
+<br/>
+<br/>
 <form th:method="GET" th:action="@{/books}">
     <label for="page">Введите номер страницы:</label>
     <br/>
@@ -27,6 +29,9 @@
     <label for="countOfBooks">Введите количество отображаемых книг:</label>
     <br/>
     <input type="text" id="countOfBooks" name="books_per_page"/>
+    <br/>
+    <input id="yes" type="radio" name="sort_by_year" value="true">
+    <label for="yes">Сортировка по году выпуска книги</label>
     <br/>
     <br/>
     <input type="submit" value="Отобразить"/>

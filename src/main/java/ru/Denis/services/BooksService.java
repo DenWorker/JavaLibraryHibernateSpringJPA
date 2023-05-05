@@ -1,8 +1,8 @@
 package ru.Denis.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.Denis.models.Book;
@@ -23,8 +23,10 @@ public class BooksService {
         this.booksRepository = booksRepository;
     }
 
-    public List<Book> index() {
-        return booksRepository.findAll();
+    public List<Book> index(boolean sortByYear) {
+        return (sortByYear) ?
+                (booksRepository.findAll(Sort.by("releaseDate"))) :
+                (booksRepository.findAll());
     }
 
     public Optional<Book> show(Integer id) {
@@ -35,8 +37,11 @@ public class BooksService {
         return Optional.ofNullable(booksRepository.findById(id).get().getOwner());
     }
 
-    public List<Book> findAll(int page, int booksPerPage) {
-        return booksRepository.findAll(PageRequest.of(page, booksPerPage)).get().collect(Collectors.toList());
+    public List<Book> findAll(int page, int booksPerPage, boolean sortByYear) {
+
+        return (sortByYear) ?
+                (booksRepository.findAll(PageRequest.of(page, booksPerPage, Sort.by("releaseDate"))).get().collect(Collectors.toList())) :
+                (booksRepository.findAll(PageRequest.of(page, booksPerPage)).get().collect(Collectors.toList()));
     }
 
     @Transactional

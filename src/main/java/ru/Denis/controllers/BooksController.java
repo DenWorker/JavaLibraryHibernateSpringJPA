@@ -1,6 +1,7 @@
 package ru.Denis.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -30,12 +31,16 @@ public class BooksController {
     ///////////////////////////////
     @GetMapping()
     public String index(Model model, @RequestParam(value = "page", required = false) Integer page,
-                        @RequestParam(value = "books_per_page", required = false) Integer booksPerPage) {
+                        @RequestParam(value = "books_per_page", required = false) Integer booksPerPage,
+                        @RequestParam(value = "sort_by_year", required = false) Boolean sortByYear) {
 
+        if (sortByYear == null) {
+            sortByYear = false;
+        }
         if (page == null || booksPerPage == null) {
-            model.addAttribute("books", booksService.index());
+            model.addAttribute("books", booksService.index(sortByYear));
         } else {
-            model.addAttribute("books", booksService.findAll(page, booksPerPage));
+            model.addAttribute("books", booksService.findAll(page, booksPerPage, sortByYear));
         }
 
         return "books/index";
