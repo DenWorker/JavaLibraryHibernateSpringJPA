@@ -24,6 +24,7 @@
             <col span="2" style="background:Khaki">
             <col style="background-color:LightCyan">
             <col style="background-color:#9be08e">
+            <col style="background-color: #8cb7ee">
         </colgroup>
         <thead>
         <tr>
@@ -31,14 +32,16 @@
             <th>Название книги</th>
             <th>Автор книги</th>
             <th>Дата выпуска</th>
+            <th>Когда была взята</th>
         </tr>
         </thead>
 
         <tbody th:each="book : ${person_books}">
-        <th th:text="${book.getId()}">value</th>
-        <th th:text="${book.getTitle()}">value</th>
-        <th th:text="${book.getAuthor()}">value</th>
-        <th th:text="${book.getReleaseDate()}">value</th>
+        <th th:text="${book.getId()}" th:style="${book.isDelay()}? 'color: red'">value</th>
+        <th th:text="${book.getTitle()}" th:style="${book.isDelay()}? 'color: red'">value</th>
+        <th th:text="${book.getAuthor()}" th:style="${book.isDelay()}? 'color: red'">value</th>
+        <th th:text="${book.getReleaseDate()}" th:style="${book.isDelay()}? 'color: red'">value</th>
+        <th th:text="${book.getTakingBook()}" th:style="${book.isDelay()}? 'color: red'">value</th>
         </tbody>
     </table>
 </div>

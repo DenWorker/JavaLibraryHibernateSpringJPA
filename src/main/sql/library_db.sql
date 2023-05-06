@@ -35,6 +35,9 @@ VALUES ('Правильные роды', 'К.И.Чайковский', 2008, 5);
 INSERT INTO Books(title, author, releaseDate, person_id)
 VALUES ('Спорт', 'Арнольд Шварцнеггер', 1950, 2);
 
+ALTER TABLE Books
+    ADD COLUMN taking_book TIMESTAMP;
+
 
 
 INSERT INTO Books(title, author, releaseDate)

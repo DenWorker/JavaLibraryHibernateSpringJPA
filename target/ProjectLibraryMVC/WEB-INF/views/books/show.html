@@ -16,6 +16,7 @@
 <br>
 <form th:method="PATCH" th:if="${personOfBook}" th:action="@{/books/{id}/free(id=${book.getId()})}">
     <p th:text="'Книга сейчас у: ' + ${personOfBook.getFullName()}">VALUE</p>
+    <p th:text="'Книга взята: ' + ${book.getTakingBook()}">VALUE</p>
     <input type="submit" value="Освободить книгу"/>
 </form>
 

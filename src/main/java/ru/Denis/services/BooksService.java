@@ -9,6 +9,7 @@ import ru.Denis.models.Book;
 import ru.Denis.models.Person;
 import ru.Denis.repositories.BooksRepository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -73,6 +74,7 @@ public class BooksService {
     @Transactional
     public void assignBook(int book_id, Person person) {
         booksRepository.findById(book_id).get().setOwner(person);
+        booksRepository.findById(book_id).get().setTakingBook(new Date());
     }
 
 }

@@ -5,6 +5,7 @@ import javax.persistence.*;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 @Entity
 @Table(name = "books")
@@ -31,15 +32,24 @@ public class Book {
     @JoinColumn(name = "person_id", referencedColumnName = "id")
     private Person owner;
 
+    @Column(name = "taking_book")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date takingBook;
+
+    @Transient
+    private boolean delay;
+
+
     public Book() {
     }
 
-    public Book(int id, String title, String author, int releaseDate, Person owner) {
+    public Book(int id, String title, String author, int releaseDate, Person owner, Date takingBook) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.releaseDate = releaseDate;
         this.owner = owner;
+        this.takingBook = takingBook;
     }
 
     public String getTitle() {
@@ -80,5 +90,21 @@ public class Book {
 
     public void setOwner(Person owner) {
         this.owner = owner;
+    }
+
+    public Date getTakingBook() {
+        return takingBook;
+    }
+
+    public void setTakingBook(Date takingBook) {
+        this.takingBook = takingBook;
+    }
+
+    public boolean isDelay() {
+        return (new Date().getTime() - takingBook.getTime() >= 864000000);
+    }
+
+    public void setDelay(boolean delay) {
+        this.delay = delay;
     }
 }
