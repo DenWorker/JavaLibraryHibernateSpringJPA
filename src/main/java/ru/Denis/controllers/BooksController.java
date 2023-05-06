@@ -120,7 +120,7 @@ public class BooksController {
     ///////////////////////////////
     @GetMapping("/search")
     public String search(@RequestParam(value = "findBook", required = false) String findBook, Model model) {
-        model.addAttribute("findBook", booksService.findBook(findBook));
+        model.addAttribute("findBooks", booksService.findBook(findBook));
 
         return "books/search";
     }

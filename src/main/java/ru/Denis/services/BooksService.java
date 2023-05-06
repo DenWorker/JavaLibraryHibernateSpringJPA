@@ -9,9 +9,7 @@ import ru.Denis.models.Book;
 import ru.Denis.models.Person;
 import ru.Denis.repositories.BooksRepository;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -45,8 +43,8 @@ public class BooksService {
                 (booksRepository.findAll(PageRequest.of(page, booksPerPage)).get().collect(Collectors.toList()));
     }
 
-    public Optional<Book> findBook(String findBook) {
-        if (findBook.isEmpty()) return Optional.empty();
+    public List<Book> findBook(String findBook) {
+        if (findBook == null || findBook.equals("")) return Collections.emptyList();
         return booksRepository.findBookByTitleStartingWith(findBook);
     }
 
