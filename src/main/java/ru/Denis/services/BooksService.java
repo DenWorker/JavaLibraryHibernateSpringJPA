@@ -10,7 +10,6 @@ import ru.Denis.models.Person;
 import ru.Denis.repositories.BooksRepository;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -36,11 +35,11 @@ public class BooksService {
         return Optional.ofNullable(booksRepository.findById(id).get().getOwner());
     }
 
-    public List<Book> findAll(int page, int booksPerPage, boolean sortByYear) {
+    public List<Book> findWithPagination(int page, int booksPerPage, boolean sortByYear) {
 
         return (sortByYear) ?
-                (booksRepository.findAll(PageRequest.of(page, booksPerPage, Sort.by("releaseDate"))).get().collect(Collectors.toList())) :
-                (booksRepository.findAll(PageRequest.of(page, booksPerPage)).get().collect(Collectors.toList()));
+                (booksRepository.findAll(PageRequest.of(page, booksPerPage, Sort.by("releaseDate"))).getContent()) :
+                (booksRepository.findAll(PageRequest.of(page, booksPerPage)).getContent());
     }
 
     public List<Book> findBook(String findBook) {
@@ -55,7 +54,12 @@ public class BooksService {
 
     @Transactional
     public void update(Book updateBook, int id) {
+        Book bookToBeUpdate = booksRepository.findById(id).get();
+
         updateBook.setId(id);
+        updateBook.setOwner(bookToBeUpdate.getOwner());
+        updateBook.setTakingBook(bookToBeUpdate.getTakingBook());
+
         booksRepository.save(updateBook);
     }
 
@@ -66,13 +70,20 @@ public class BooksService {
 
     @Transactional
     public void toFree(int id) {
-        booksRepository.findById(id).get().setOwner(null);
+        booksRepository.findById(id).ifPresent(
+                book -> {
+                    book.setOwner(null);
+                    book.setTakingBook(null);
+                });
     }
 
     @Transactional
     public void assignBook(int book_id, Person person) {
-        booksRepository.findById(book_id).get().setOwner(person);
-        booksRepository.findById(book_id).get().setTakingBook(new Date());
+        booksRepository.findById(book_id).ifPresent(
+                book -> {
+                    book.setOwner(person);
+                    book.setTakingBook(new Date());
+                });
     }
 
 }

@@ -37,11 +37,11 @@
         </thead>
 
         <tbody th:each="book : ${person_books}">
-        <th th:text="${book.getId()}" th:style="${book.isDelay()}? 'color: red'">value</th>
-        <th th:text="${book.getTitle()}" th:style="${book.isDelay()}? 'color: red'">value</th>
-        <th th:text="${book.getAuthor()}" th:style="${book.isDelay()}? 'color: red'">value</th>
-        <th th:text="${book.getReleaseDate()}" th:style="${book.isDelay()}? 'color: red'">value</th>
-        <th th:text="${book.getTakingBook()}" th:style="${book.isDelay()}? 'color: red'">value</th>
+        <th th:text="${book.getId()}" th:style="${book.isDelay()}? 'color: red' : 'color: green'">value</th>
+        <th th:text="${book.getTitle()}" th:style="${book.isDelay()}? 'color: red' : 'color: green'">value</th>
+        <th th:text="${book.getAuthor()}" th:style="${book.isDelay()}? 'color: red' : 'color: green'">value</th>
+        <th th:text="${book.getReleaseDate()}" th:style="${book.isDelay()}? 'color: red' : 'color: green'">value</th>
+        <th th:text="${book.getTakingBook()}" th:style="${book.isDelay()}? 'color: red' : 'color: green'">value</th>
         </tbody>
     </table>
 </div>

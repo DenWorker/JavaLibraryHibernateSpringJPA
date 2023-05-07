@@ -101,7 +101,7 @@ public class Book {
     }
 
     public boolean isDelay() {
-        return (new Date().getTime() - takingBook.getTime() >= 864000000);
+        return (new Date().getTime() - takingBook.getTime() > 864000000);
     }
 
     public void setDelay(boolean delay) {

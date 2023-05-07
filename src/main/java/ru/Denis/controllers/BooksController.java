@@ -39,7 +39,7 @@ public class BooksController {
         if (page == null || booksPerPage == null) {
             model.addAttribute("books", booksService.index(sortByYear));
         } else {
-            model.addAttribute("books", booksService.findAll(page, booksPerPage, sortByYear));
+            model.addAttribute("books", booksService.findWithPagination(page, booksPerPage, sortByYear));
         }
 
         return "books/index";
@@ -119,7 +119,12 @@ public class BooksController {
 
     ///////////////////////////////
     @GetMapping("/search")
-    public String search(@RequestParam(value = "findBook", required = false) String findBook, Model model) {
+    public String searchPage() {
+        return "books/search";
+    }
+
+    @PostMapping("/search")
+    public String MakeSearch(@RequestParam(value = "findBook", required = false) String findBook, Model model) {
         model.addAttribute("findBooks", booksService.findBook(findBook));
 
         return "books/search";

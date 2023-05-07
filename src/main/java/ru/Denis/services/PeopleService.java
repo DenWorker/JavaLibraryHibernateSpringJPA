@@ -8,6 +8,7 @@ import ru.Denis.models.Book;
 import ru.Denis.models.Person;
 import ru.Denis.repositories.PeopleRepository;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,8 +31,10 @@ public class PeopleService {
     }
 
     public List<Book> getAllBooksOfPerson(int id) {
-        Hibernate.initialize(peopleRepository.findById(id).get().getBooks());
-        return peopleRepository.findById(id).get().getBooks();
+        if (peopleRepository.findById(id).isPresent()) {
+            Hibernate.initialize(peopleRepository.findById(id).get().getBooks());
+            return peopleRepository.findById(id).get().getBooks();
+        } else return Collections.emptyList();
     }
 
     @Transactional
